@@ -20,7 +20,7 @@ export const create = (Model) => async (req, res, next) => {
 // get all datas
 export const getAll = (Model) => async (req, res, next) => {
   try {
-    const data = await Model.find();
+    const data = await Model.find().select("-password");
     if (!data) {
       return Response.errorMessage(res, "failed!", status.BAD_REQUEST);
     }
@@ -33,7 +33,7 @@ export const getAll = (Model) => async (req, res, next) => {
 // get One By Id datas
 export const getOneById = (Model) => async (req, res, next) => {
   try {
-    const data = await Model.findById(req.params.id);
+    const data = await Model.findById(req.params.id).select("-password");;
     if (!data) {
       return Response.errorMessage(res, "failed!", status.BAD_REQUEST);
     }
@@ -48,7 +48,7 @@ export const updateOneById = (Model) => async (req, res, next) => {
   try {
     const data = await Model.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
-    });
+    }).select("-password");;
     if (!data) {
       return Response.errorMessage(res, "failed!", status.BAD_REQUEST);
     }
@@ -61,7 +61,7 @@ export const updateOneById = (Model) => async (req, res, next) => {
 // delete One By Id datas
 export const deleteOneById = (Model) => async (req, res, next) => {
   try {
-    const data = await Model.findByIdAndDelete(req.params.id);
+    const data = await Model.findByIdAndDelete(req.params.id).select("-password");;
     if (!data) {
       return Response.errorMessage(res, "failed!", status.BAD_REQUEST);
     }

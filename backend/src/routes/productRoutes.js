@@ -1,7 +1,8 @@
 import { Router } from "express";
 import * as ProductController from "../controller/productController";
-
+import  {verifyUserToken} from "../middleware/verifyToken"
 const route = Router();
+route.use(verifyUserToken);
 route
   .route("/")
   .post(ProductController.createController)
