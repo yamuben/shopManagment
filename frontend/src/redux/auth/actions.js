@@ -6,8 +6,8 @@ export const loginAction = (data) => async (dispatch) => {
     try {
         const res = await loginService(data);
         if(res?.status===200){
-            dispatch(authActions.login(res.data));
             dispatch(authActions.setIsFetching(false));
+            dispatch(authActions.login(res.data));
         }
         dispatch(authActions.setIsFetching(false));
     } catch (error) {
