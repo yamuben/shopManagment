@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const authSlice = createSlice({
   name: "authentication",
-  initialState: { token: "", user: { }, isFetching: false },
+  initialState: { token: "", user: {}, isFetching: false },
   reducers: {
     login(state, action) {
       state.token = action.payload?.data?.token;
@@ -11,6 +11,10 @@ const authSlice = createSlice({
     setIsFetching(state, action) {
       state.isFetching = action.payload;
     },
+    logoutAction(state, action) {
+      state.token = "";
+      state.user = {};
+    }
   },
 });
 

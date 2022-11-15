@@ -12,11 +12,14 @@ import PersonAdd from "@mui/icons-material/PersonAdd";
 import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
 import { Card } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
 
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+
+import { authActions } from "../../redux/auth";
 
 export default function AccountMenu() {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.auth);
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -111,6 +114,7 @@ export default function AccountMenu() {
         </MenuItem>
         <MenuItem
           onClick={() => {
+            dispatch(authActions.logoutAction({}));
             navigate("/login");
           }}
         >

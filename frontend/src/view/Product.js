@@ -1,6 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import TableShop from "../components/TableShop";
-
+import { Stack, Button, Modal } from "@mui/material";
+// import { getPatient } from "../redux/product/services";
+import ProductForm from "../components/forms/ProductForm";
 import { useDispatch, useSelector } from "react-redux";
 
 import { getAllProductAction } from "../redux/product/actions";
@@ -12,6 +14,7 @@ const tableData = [
 ];
 const ViewComponent = (props) => {
   const dispatch = useDispatch();
+  const [open, setOpen] = useState(false);
   const { products, isFetching } = useSelector((state) => state.product);
 
   useEffect(() => {
@@ -19,7 +22,24 @@ const ViewComponent = (props) => {
   }, []);
   return (
     <>
-      <h1> Test Product View</h1>
+      <Modal
+        open={open}
+        onClose={() => {
+          setOpen(false);
+        }}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+        sx={{ alignItems: "center", justifyContent: "center", display: "flex" }}
+      >
+        <ProductForm setOpen={setOpen}/>
+      </Modal>
+      <Stack direction="row" alignItems="center" justifyContent="space-around">
+        <h1> Test Product View</h1>
+        <Button variant="contained" onClick={() => setOpen(true)}>
+          {" "}
+          Create Product
+        </Button>
+      </Stack>
       <TableShop tableData={tableData} items={products} />
     </>
   );
